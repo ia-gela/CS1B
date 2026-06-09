@@ -15,7 +15,6 @@ body{
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-/* TITLE */
 h1{
     color: #110702;
     margin-bottom: 40px;
@@ -24,13 +23,12 @@ h1{
     text-shadow: 0 0 10px #110702;
 }
 
-/* UPLOAD SECTION */
 .upload-container{
     width:90%;
     margin:30px auto;
     display:flex;
     justify-content:space-between;
-    gap:40px;
+    gap:50px;
 }
 
 .upload-form,
@@ -83,7 +81,6 @@ h1{
     font-weight:bold;
 }
 
-/* QUIZ GALLERY */
 .photo-row{
     display:flex;
     flex-wrap:wrap;
@@ -118,7 +115,6 @@ h1{
     box-shadow:0 0 15px #110702;
 }
 
-/* BACK BUTTON */
 a{
     display:inline-block;
     margin-top:10px;
@@ -135,7 +131,6 @@ a:hover{
     color:#F3E9DC;
 }
 
-/* POPUP OVERLAY */
 .overlay{
     position:fixed;
     top:0;
@@ -186,7 +181,6 @@ a:hover{
 
 <h1>QUIZZES</h1>
 
-<!-- ✅ UPLOAD SECTION -->
 <div class="upload-container">
 
     <div class="upload-form">
@@ -215,7 +209,6 @@ a:hover{
 
 </div>
 
-<!-- QUIZ IMAGES -->
 <div class="photo-row">
 
     <div class="photo-box">
@@ -250,7 +243,6 @@ a:hover{
 
 <script>
 
-/* UPLOAD FUNCTION */
 let activityCount = 0;
 
 function uploadActivity(){
@@ -278,7 +270,6 @@ function uploadActivity(){
     document.getElementById("imageUpload").value = "";
 }
 
-/* IMAGE POPUP */
 const images = document.querySelectorAll(".photo-box img");
 const overlay = document.getElementById("overlay");
 const overlayImg = document.getElementById("overlayImg");
