@@ -73,6 +73,7 @@ h1 {
     cursor:pointer;
 }
 
+/* Uploaded card */
 .activity-card{
     border:2px solid #110702;
     border-radius:10px;
@@ -134,6 +135,7 @@ a:hover {
     color: #F3E9DC;
     box-shadow: 0 0 15px #110702;
 }
+
 .overlay{
     position:fixed;
     top:0;
@@ -205,7 +207,6 @@ a:hover {
 
 </div>
 
-
 <div class="photo-row">
 
     <div class="photo-box">
@@ -236,8 +237,6 @@ a:hover {
 
 <script>
 
-<script>
-
 let activityCount = 0;
 
 function uploadActivity(){
@@ -255,10 +254,8 @@ function uploadActivity(){
     const card = document.createElement("div");
     card.classList.add("activity-card");
 
-    let imageHTML = "";
-
-    // CHECK IF IMAGE IS SELECTED
     if(imageInput.files && imageInput.files[0]){
+
         const reader = new FileReader();
 
         reader.onload = function(e){
@@ -269,8 +266,8 @@ function uploadActivity(){
         };
 
         reader.readAsDataURL(imageInput.files[0]);
-    }
-    else{
+
+    } else {
         card.innerHTML =
             "<strong>Activity #" + activityCount + "</strong><br>" +
             fileName;
