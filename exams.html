@@ -1,180 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exams - Maria Angela Navalta</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exams - Maria Angela Navalta</title>
 
 <style>
-    body {
-        background: url("Images/silk.jpg"); 
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-    .body {
 
-        font-family: Georgia, 'Times New Roman', Times, serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background-color: #F3E9DC;
+body {
+    background: url("Images/silk.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
 
-     }
+h1 {
+    color: #110702;
+    margin-bottom: 40px;
+    text-align: center;
+    font-size: 2em;
+    text-shadow: 0 0 10px #110702;
+}
 
-     @keyframes move {
-        0% {background-position: 0% 50%;}
-        50% {background-position: 100% 50%;}
-        100% {background-position: 0% 50%;}
-     }
+.photo-row{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 40px;
+}
 
-     h1 {
-        color: #110702;
-        margin-bottom: 40px;
-        text-align: center;
-        font-size: 2em;
-        letter-spacing: 1px;
-        text-shadow: 0 0 10px #110702;
-     }
+.photo-box {
+    background-color: rgba(243,233,220,0.2);
+    border: 2px solid #110702;
+    box-shadow: 0 0 20px rgba(17,7,2,0.4);
+    border-radius: 15px;
+    padding: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+    height: 250px;
+    transition: transform 0.3s ease;
+}
 
-     .photo-row{
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 30px;
-        margin-bottom: 40px;
-     }
+.photo-box:hover {
+    transform: scale(1.05);
+}
 
-     .photo-box {
-        background-color: #F3E9DC(255, 255, 255, 0.1);
-        border: 2px solid #110702;
-        box-shadow: 0 0 20px #110702(0, 229, 255, 0.4);
-        border-radius: 15px;
-        padding: 6px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 250px;
-        height: 250px;
-        transition: transform 0.3s ease;
-     }
+.photo-box img{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 3px solid #110702;
+    box-shadow: 0 0 15px #110702;
+}
 
-     .photo-box:hover {
-        transform: scale(1.05);
-     }
+a {
+    margin-top: 10px;
+    color: #110702;
+    text-decoration: none;
+    border: 2px solid #110702;
+    padding: 10px 25px;
+    border-radius: 8px;
+    transition: 0.3s;
+    font-weight: bold;
+    display: inline-block;
+}
 
-     .photo-box img{
-        width: 200px;
-        height: 200px;
-        object-fit: cover;
-        border-radius: 10px;
-        border:3px solid #110702;
-        box-shadow: 0 0 15px #110702;
-     }
+a:hover {
+    background-color: #110702;
+    color: #F3E9DC;
+    box-shadow: 0 0 15px #110702;
+}
 
-     a {
-        margin-top: 10px;
-        color: #110702;
-        text-decoration: none;
-        border: 2px solid #110702;
-        padding: 10px 25px;
-        border-radius: 8px;
-        transition: 0.3s;
-        font-weight: bold;
-     }
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s ease;
+    z-index: 1000;
+}
 
-     a:hover {
-        background-color: #110702;
-        color: #F3E9DC;
-        box-shadow: 0 0 15px #110702;
-     }
+.overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
 
-    .overlay {
-       position: fixed;
-       top: 0;
-       left: 0;
-       width: 100%;
-       height: 100%;
-       background: rgba(0,0,0,0.7);
-       display: flex;
-       flex-direction: column;
-       justify-content: center;
-       align-items: center;
-       opacity: 0;
-       pointer-events: none;
-       transition: 0.3s ease;
-       z-index: 1000;
-     } 
+.overlay img {
+    width: 350px;
+    max-width: 80%;
+    border-radius: 10px;
+    border: 3px solid #110702;
+    background: white;
+    padding: 10px;
+    transform: scale(0.8);
+    transition: 0.3s ease;
+}
 
-     .overlay.active {
-       opacity: 1;
-       pointer-events: all;
-     }
+.overlay.active img {
+    transform: scale(1);
+}
 
-     .overlay img {
-       max-width: 90%;
-       max-height: 80%;
-       border-radius: 10px;
-       border: 3px solid #110702;
-       box-shadow: 0 0 20px #110702(0, 229, 255, 0.4);
-       transform: scale(0.8);
-       transition: 0.3s ease;
-     }
+.overlay h2 {
+    margin-top: 15px;
+    color: #110702;
+}
 
-     .overlay.active img {
-       transform: scale(1);
-     }
-
-     .overlay h2 {
-       margin-top: 15px;
-       color: #110702;
-       text-shadow: 0 0 20px #110702(0, 229, 255, 0.4);
-     };
-     }
 </style>
 </head>
 
 <body>
-     <h1> EXAMS </h1>
 
-     <div class="photo-row">
-        <div class="photo-box">
-           <img src="Images/MIDTERM.jpeg" alt="Midterm">
-        </div>
-        <div class="photo-box">
-            <img src="finals2" alt="Finals">
-        </div>
+<h1>EXAMS</h1>
 
-        <a href="index.html"> ⬅ Back to Portfolio </a>
+<div class="photo-row">
 
- <div class="overlay" id="overlay">
-        <img id="overlayImg" src="">
-        <h2 id="overlayTitle"></h2>
-        </div>
+    <div class="photo-box">
+        <img src="Images/MIDTERM.jpeg" alt="Midterm">
+    </div>
 
-    <script>
-        const images = document.querySelectorAll(".photo-box img");
-        const overlay = document.getElementById("overlay");
-        const overlayImg = document.getElementById("overlayImg");
-        const overlayTitle = document.getElementById("overlayTitle");
+    <div class="photo-box">
+        <img src="Images/FINALS.jpeg" alt="Finals">
+    </div>
 
-        let isOpen = false; 
+</div>
 
-        images.forEach(img => {
-        img.addEventListener("click", () => {
-        if (!isOpen) {
+<div style="text-align:center;">
+    <a href="index.html">⬅ Back to Portfolio</a>
+</div>
+
+<div class="overlay" id="overlay">
+    <img id="overlayImg">
+    <h2 id="overlayTitle"></h2>
+</div>
+
+<script>
+
+const images = document.querySelectorAll(".photo-box img");
+const overlay = document.getElementById("overlay");
+const overlayImg = document.getElementById("overlayImg");
+const overlayTitle = document.getElementById("overlayTitle");
+
+images.forEach(img => {
+    img.addEventListener("click", () => {
         overlay.classList.add("active");
         overlayImg.src = img.src;
-        overlayTitle.textContent = img.alt; 
-        isOpen = true;
-      }
-  });
+        overlayTitle.textContent = img.alt;
+    });
 });
 
-        overlay.addEventListener("click", () => {
-        overlay.classList.remove("active");
-        isOpen = false;
+overlay.addEventListener("click", () => {
+    overlay.classList.remove("active");
 });
-    </script>
+
+</script>
+
 </body>
 </html>
