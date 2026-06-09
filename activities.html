@@ -105,7 +105,36 @@ a:hover {
 
 <div style="text-align:center;">
     <a href="index.html">⬅ Back to Portfolio</a> 
+
+<div class="overlay" id="overlay">
+  <img id="overlayImg" src="">
+  <h2 id="overlayTitle"></h2>
 </div>
+
+<script>
+const images = document.querySelectorAll(".photo-box img");
+const overlay = document.getElementById("overlay");
+const overlayImg = document.getElementById("overlayImg");
+const overlayTitle = document.getElementById("overlayTitle");
+
+let isOpen = false;
+
+images.forEach(img => {
+  img.addEventListener("click", () => {
+    if (!isOpen) {
+      overlay.classList.add("active");
+      overlayImg.src = img.src;
+      overlayTitle.textContent = img.alt;
+      isOpen = true;
+    }
+  });
+});
+
+overlay.addEventListener("click", () => {
+  overlay.classList.remove("active");
+  isOpen = false;
+});
+</script>
 
 </body>
 </html>
