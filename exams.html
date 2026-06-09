@@ -88,6 +88,49 @@
         color: #F3E9DC;
         box-shadow: 0 0 15px #110702;
      }
+
+    .overlay {
+       position: fixed;
+       top: 0;
+       left: 0;
+       width: 100%;
+       height: 100%;
+       background: rgba(0,0,0,0.7);
+       display: flex;
+       flex-direction: column;
+       justify-content: center;
+       align-items: center;
+       opacity: 0;
+       pointer-events: none;
+       transition: 0.3s ease;
+       z-index: 1000;
+     } 
+
+     .overlay.active {
+       opacity: 1;
+       pointer-events: all;
+     }
+
+     .overlay img {
+       max-width: 90%;
+       max-height: 80%;
+       border-radius: 10px;
+       border: 3px solid #110702;
+       box-shadow: 0 0 20px #110702(0, 229, 255, 0.4);
+       transform: scale(0.8);
+       transition: 0.3s ease;
+     }
+
+     .overlay.active img {
+       transform: scale(1);
+     }
+
+     .overlay h2 {
+       margin-top: 15px;
+       color: #110702;
+       text-shadow: 0 0 20px #110702(0, 229, 255, 0.4);
+     };
+     }
 </style>
 </head>
 
@@ -103,5 +146,34 @@
         </div>
 
         <a href="index.html"> ⬅ Back to Portfolio </a>
+
+ <div class="overlay" id="overlay">
+        <img id="overlayImg" src="">
+        <h2 id="overlayTitle"></h2>
+        </div>
+
+    <script>
+        const images = document.querySelectorAll(".photo-box img");
+        const overlay = document.getElementById("overlay");
+        const overlayImg = document.getElementById("overlayImg");
+        const overlayTitle = document.getElementById("overlayTitle");
+
+        let isOpen = false; 
+
+        images.forEach(img => {
+        img.addEventListener("click", () => {
+        if (!isOpen) {
+        overlay.classList.add("active");
+        overlayImg.src = img.src;
+        overlayTitle.textContent = img.alt; 
+        isOpen = true;
+      }
+  });
+});
+
+        overlay.addEventListener("click", () => {
+        overlay.classList.remove("active");
+        isOpen = false;
+});
 </body>
 </html>
