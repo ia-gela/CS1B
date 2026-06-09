@@ -237,12 +237,15 @@ a:hover {
 
 <script>
 
-/* UPLOAD SYSTEM */
+<script>
+
+/* UPLOAD SYSTEM WITH IMAGE PREVIEW */
 let activityCount = 0;
 
 function uploadActivity(){
 
     const fileName = document.getElementById("fileName").value;
+    const imageInput = document.getElementById("imageUpload");
 
     if(fileName.trim() === ""){
         alert("Please enter a file name before submitting.");
@@ -254,9 +257,26 @@ function uploadActivity(){
     const card = document.createElement("div");
     card.classList.add("activity-card");
 
-    card.innerHTML =
-        "<strong>Activity #" + activityCount + "</strong><br>" +
-        fileName;
+    let imageHTML = "";
+
+    // CHECK IF IMAGE IS SELECTED
+    if(imageInput.files && imageInput.files[0]){
+        const reader = new FileReader();
+
+        reader.onload = function(e){
+            card.innerHTML =
+                "<strong>Activity #" + activityCount + "</strong><br><br>" +
+                "<img src='" + e.target.result + "' style='width:120px;height:120px;object-fit:cover;border-radius:10px;border:2px solid #110702;box-shadow:0 0 10px #110702;'><br><br>" +
+                fileName;
+        };
+
+        reader.readAsDataURL(imageInput.files[0]);
+    }
+    else{
+        card.innerHTML =
+            "<strong>Activity #" + activityCount + "</strong><br>" +
+            fileName;
+    }
 
     document.getElementById("activityList").appendChild(card);
 
@@ -265,7 +285,7 @@ function uploadActivity(){
     document.getElementById("imageUpload").value = "";
 }
 
-/* POPUP IMAGE (for your gallery only) */
+/* POPUP IMAGE (UNCHANGED) */
 const images = document.querySelectorAll(".photo-box img");
 const overlay = document.getElementById("overlay");
 const overlayImg = document.getElementById("overlayImg");
