@@ -6,15 +6,14 @@
 <title>Activities - Maria Angela Navalta</title>
 
 <style>
+
 body{
-        background: url("Images/silk.jpg"); 
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        font-family: Georgia, 'Times New Roman', Times, serif;
+    background: url("Images/silk.jpg"); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
-
-
 
 h1 {
     color: #110702;
@@ -24,6 +23,67 @@ h1 {
     letter-spacing: 1px;
     text-shadow: 0 0 10px #110702;
 }
+
+/* ================= UPLOAD SECTION (ADDED) ================= */
+.upload-container{
+    width:90%;
+    margin:30px auto;
+    display:flex;
+    justify-content:space-between;
+    gap:40px;
+}
+
+.upload-form,
+.uploaded-section{
+    width:45%;
+    border:2px solid #110702;
+    border-radius:15px;
+    padding:20px;
+    box-shadow:0 0 20px rgba(17,7,2,0.4);
+    background:rgba(255,255,255,0.2);
+}
+
+.upload-form h2,
+.uploaded-section h2{
+    text-align:center;
+}
+
+.upload-form label{
+    display:block;
+    margin-top:10px;
+    font-weight:bold;
+}
+
+.upload-form input{
+    width:100%;
+    padding:8px;
+    margin-top:5px;
+    border:2px solid #110702;
+    border-radius:8px;
+}
+
+.upload-form button{
+    margin-top:15px;
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:8px;
+    background:#110702;
+    color:#F3E9DC;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.activity-card{
+    border:2px solid #110702;
+    border-radius:10px;
+    padding:10px;
+    margin-bottom:10px;
+    text-align:center;
+    font-weight:bold;
+}
+
+/* ================= YOUR ORIGINAL DESIGN (UNCHANGED) ================= */
 
 .photo-row{
     display: flex;
@@ -78,12 +138,81 @@ a:hover {
     box-shadow: 0 0 15px #110702;
 }
 
+/* ================= POPUP (ADDED) ================= */
+
+.overlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.7);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    opacity:0;
+    pointer-events:none;
+    transition:0.3s ease;
+    z-index:1000;
+}
+
+.overlay.active{
+    opacity:1;
+    pointer-events:all;
+}
+
+.overlay img{
+    width:350px;
+    max-width:80%;
+    border-radius:10px;
+    border:3px solid #110702;
+    background:white;
+    padding:10px;
+}
+
+.overlay h2{
+    margin-top:15px;
+    color:#F3E9DC;
+}
+
 </style>
 </head>
 
 <body>
 
 <h1>ACTIVITIES</h1>
+
+<!-- ================= UPLOAD SECTION (ADDED) ================= -->
+<div class="upload-container">
+
+    <div class="upload-form">
+
+        <h2>Upload Activity</h2>
+
+        <label>File Name</label>
+        <input type="text" id="fileName">
+
+        <label>Upload File</label>
+        <input type="file" id="fileUpload">
+
+        <label>Upload Image</label>
+        <input type="file" id="imageUpload" accept="image/*">
+
+        <button onclick="uploadActivity()">Submit</button>
+
+    </div>
+
+    <div class="uploaded-section">
+
+        <h2>Uploaded Activities</h2>
+        <div id="activityList"></div>
+
+    </div>
+
+</div>
+
+<!-- ================= YOUR ORIGINAL CONTENT (UNCHANGED) ================= -->
 
 <div class="photo-row">
 
@@ -108,6 +237,61 @@ a:hover {
     <a href="index.html">⬅ Back to Portfolio</a> 
 </div>
 
+<!-- POPUP -->
+<div class="overlay" id="overlay">
+    <img id="overlayImg">
+    <h2 id="overlayTitle"></h2>
+</div>
+
+<script>
+
+/* UPLOAD SYSTEM */
+let activityCount = 0;
+
+function uploadActivity(){
+
+    const fileName = document.getElementById("fileName").value;
+
+    if(fileName.trim() === ""){
+        alert("Please enter a file name before submitting.");
+        return;
+    }
+
+    activityCount++;
+
+    const card = document.createElement("div");
+    card.classList.add("activity-card");
+
+    card.innerHTML =
+        "<strong>Activity #" + activityCount + "</strong><br>" +
+        fileName;
+
+    document.getElementById("activityList").appendChild(card);
+
+    document.getElementById("fileName").value = "";
+    document.getElementById("fileUpload").value = "";
+    document.getElementById("imageUpload").value = "";
+}
+
+/* POPUP IMAGE (for your gallery only) */
+const images = document.querySelectorAll(".photo-box img");
+const overlay = document.getElementById("overlay");
+const overlayImg = document.getElementById("overlayImg");
+const overlayTitle = document.getElementById("overlayTitle");
+
+images.forEach(img => {
+    img.addEventListener("click", () => {
+        overlay.classList.add("active");
+        overlayImg.src = img.src;
+        overlayTitle.textContent = img.alt;
+    });
+});
+
+overlay.addEventListener("click", () => {
+    overlay.classList.remove("active");
+});
+
+</script>
 
 </body>
 </html>
