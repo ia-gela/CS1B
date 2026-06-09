@@ -23,12 +23,79 @@ h1 {
     text-shadow: 0 0 10px #110702;
 }
 
+.upload-container{
+    width:90%;
+    margin:30px auto;
+    display:flex;
+    justify-content:space-between;
+    gap:40px;
+}
+
+.upload-form,
+.uploaded-section{
+    width:45%;
+    border:2px solid #110702;
+    border-radius:15px;
+    padding:20px;
+    box-shadow:0 0 15px #110702;
+    background:rgba(243,233,220,0.2);
+}
+
+.upload-form h2,
+.uploaded-section h2{
+    text-align:center;
+}
+
+.upload-form label{
+    display:block;
+    margin-top:10px;
+    font-weight:bold;
+}
+
+.upload-form input{
+    width:100%;
+    padding:8px;
+    margin-top:5px;
+    border:2px solid #110702;
+    border-radius:8px;
+}
+
+.upload-form button{
+    margin-top:15px;
+    padding:10px;
+    width:100%;
+    border:none;
+    border-radius:8px;
+    background:#110702;
+    color:#F3E9DC;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.activity-card{
+    border:2px solid #110702;
+    border-radius:10px;
+    padding:15px;
+    margin-bottom:10px;
+    text-align:center;
+    font-weight:bold;
+}
+
+.activity-card img{
+    width:120px;
+    height:120px;
+    object-fit:cover;
+    border-radius:10px;
+    border:2px solid #110702;
+    margin-top:10px;
+}
+
 .photo-row{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
-    margin-bottom: 40px;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:30px;
+    margin-bottom:40px;
 }
 
 .photo-box {
@@ -67,13 +134,12 @@ a {
     border-radius: 8px;
     transition: 0.3s;
     font-weight: bold;
-    display: inline-block;
+    display:inline-block;
 }
 
 a:hover {
     background-color: #110702;
     color: #F3E9DC;
-    box-shadow: 0 0 15px #110702;
 }
 
 .overlay {
@@ -125,6 +191,31 @@ a:hover {
 
 <h1>EXAMS</h1>
 
+<div class="upload-container">
+
+    <div class="upload-form">
+
+        <h2>Upload Exam</h2>
+
+        <label>Exam Name</label>
+        <input type="text" id="fileName">
+
+        <label>Upload Image</label>
+        <input type="file" id="imageUpload" accept="image/*">
+
+        <button onclick="uploadExam()">Submit</button>
+
+    </div>
+
+    <div class="uploaded-section">
+
+        <h2>Uploaded Exams</h2>
+        <div id="examList"></div>
+
+    </div>
+
+</div>
+
 <div class="photo-row">
 
     <div class="photo-box">
@@ -148,6 +239,49 @@ a:hover {
 
 <script>
 
+let examCount = 0;
+
+function uploadExam(){
+
+    const fileName = document.getElementById("fileName").value;
+    const imageInput = document.getElementById("imageUpload");
+
+    if(fileName.trim() === ""){
+        alert("Please enter an exam name before submitting.");
+        return;
+    }
+
+    examCount++;
+
+    const card = document.createElement("div");
+    card.classList.add("activity-card");
+
+    if(imageInput.files && imageInput.files[0]){
+
+        const reader = new FileReader();
+
+        reader.onload = function(e){
+            card.innerHTML =
+                "<strong>Exam #" + examCount + "</strong><br><br>" +
+                "<img src='" + e.target.result + "'><br><br>" +
+                fileName;
+        };
+
+        reader.readAsDataURL(imageInput.files[0]);
+
+    } else {
+
+        card.innerHTML =
+            "<strong>Exam #" + examCount + "</strong><br>" +
+            fileName;
+    }
+
+    document.getElementById("examList").appendChild(card);
+
+    document.getElementById("fileName").value = "";
+    document.getElementById("imageUpload").value = "";
+}
+    
 const images = document.querySelectorAll(".photo-box img");
 const overlay = document.getElementById("overlay");
 const overlayImg = document.getElementById("overlayImg");
