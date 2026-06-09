@@ -195,7 +195,7 @@ a:hover{
         <label>Upload Image</label>
         <input type="file" id="imageUpload" accept="image/*">
 
-        <button onclick="uploadQuiz()">Submit</button>
+        <button onclick="uploadActivity()">Submit</button>
 
     </div>
 
@@ -243,7 +243,7 @@ a:hover{
 
 let quizCount = 0;
 
-function uploadQuiz(){
+function uploadActivity(){
 
     const fileName = document.getElementById("fileName").value;
     const imageInput = document.getElementById("imageUpload");
