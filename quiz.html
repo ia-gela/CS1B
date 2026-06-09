@@ -3,47 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quizzes Page</title>
+<title>Quizzes - Maria Angela Navalta</title>
 
 <style>
 
 body{
-    background: url("Images/silk.jpg"); 
+    background: url("Images/silk.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-}
-.body{
     font-family: Georgia, 'Times New Roman', Times, serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #F3E9DC;
 }
 
-
-    
-
+/* TITLE */
 h1{
     color: #110702;
     margin-bottom: 40px;
     text-align: center;
     font-size: 2em;
-    letter-spacing: 1px;
     text-shadow: 0 0 10px #110702;
 }
 
-
-}
-
+/* UPLOAD SECTION */
 .upload-container{
     width:90%;
     margin:30px auto;
     display:flex;
     justify-content:space-between;
-    align-items:flex-start;
-    gap:50px;
+    gap:40px;
 }
 
 .upload-form,
@@ -51,7 +38,7 @@ h1{
     width:45%;
     border:2px solid #110702;
     border-radius:15px;
-    padding:25px;
+    padding:20px;
     box-shadow:0 0 15px #110702;
     background:rgba(243,233,220,0.2);
 }
@@ -63,22 +50,22 @@ h1{
 
 .upload-form label{
     display:block;
-    margin-top:15px;
-    margin-bottom:5px;
+    margin-top:10px;
     font-weight:bold;
 }
 
 .upload-form input{
     width:100%;
-    padding:10px;
-    border-radius:8px;
+    padding:8px;
+    margin-top:5px;
     border:2px solid #110702;
-    box-sizing:border-box;
+    border-radius:8px;
 }
 
 .upload-form button{
-    margin-top:20px;
-    padding:10px 20px;
+    margin-top:15px;
+    padding:10px;
+    width:100%;
     border:none;
     border-radius:8px;
     background:#110702;
@@ -90,53 +77,106 @@ h1{
 .activity-card{
     border:2px solid #110702;
     border-radius:10px;
-    padding:15px;
-    margin-bottom:15px;
+    padding:10px;
+    margin-bottom:10px;
     text-align:center;
     font-weight:bold;
 }
 
+/* QUIZ GALLERY */
 .photo-row{
     display:flex;
     flex-wrap:wrap;
     justify-content:center;
-    gap:15px;
-    margin-top:40px;
+    gap:30px;
+    margin-bottom:40px;
+}
+
+.photo-box{
+    border: 2px solid #110702;
+    box-shadow: 0 0 20px #110702;
+    border-radius: 15px;
+    padding: 6px;
+    width: 250px;
+    height: 250px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    transition: transform 0.3s ease;
+}
+
+.photo-box:hover{
+    transform: scale(1.05);
 }
 
 .photo-box img{
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 10px;
+    width:200px;
+    height:200px;
+    object-fit:cover;
+    border-radius:10px;
     border:3px solid #110702;
-    box-shadow: 0 0 15px #110702;
+    box-shadow:0 0 15px #110702;
 }
+
+/* BACK BUTTON */
+a{
+    display:inline-block;
+    margin-top:10px;
+    color:#110702;
+    text-decoration:none;
+    border:2px solid #110702;
+    padding:10px 25px;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+a:hover{
+    background:#110702;
+    color:#F3E9DC;
+}
+
+/* POPUP OVERLAY */
 .overlay{
     position:fixed;
     top:0;
     left:0;
     width:100%;
     height:100%;
-    background:rgba(0,0,0,0.6);
-    display:none;
+    background:rgba(0,0,0,0.7);
+    display:flex;
+    flex-direction:column;
     justify-content:center;
     align-items:center;
-}
-
-/* SMALL CENTER POPUP */
-.overlay img{
-    width:350px;         
-    max-width:80%;
-    border-radius:12px;
-    box-shadow:0 0 20px rgba(0,0,0,0.5);
-    background:white;
-    padding:10px;
+    opacity:0;
+    pointer-events:none;
+    transition:0.3s ease;
+    z-index:1000;
 }
 
 .overlay.active{
-    display:flex;
-    cursor:pointer;
+    opacity:1;
+    pointer-events:all;
+}
+
+.overlay img{
+    width:350px;
+    max-width:80%;
+    border-radius:10px;
+    border:3px solid #110702;
+    box-shadow:0 0 20px #110702;
+    background:white;
+    padding:10px;
+    transform:scale(0.8);
+    transition:0.3s ease;
+}
+
+.overlay.active img{
+    transform:scale(1);
+}
+
+.overlay h2{
+    margin-top:15px;
+    color:#110702;
 }
 
 </style>
@@ -146,6 +186,7 @@ h1{
 
 <h1>QUIZZES</h1>
 
+<!-- ✅ UPLOAD SECTION -->
 <div class="upload-container">
 
     <div class="upload-form">
@@ -153,7 +194,7 @@ h1{
         <h2>Activity Upload File</h2>
 
         <label>File Name</label>
-        <input type="text" id="fileName" placeholder="Enter file name">
+        <input type="text" id="fileName">
 
         <label>Upload File</label>
         <input type="file" id="fileUpload">
@@ -171,13 +212,10 @@ h1{
         <div id="activityList"></div>
 
     </div>
-    
-    <div class="overlay" id="overlay">
-         <img id="overlayImg">
-         <h2 id="overlayTitle"></h2>
-    </div>
+
 </div>
 
+<!-- QUIZ IMAGES -->
 <div class="photo-row">
 
     <div class="photo-box">
@@ -204,6 +242,7 @@ h1{
 
 <a href="index.html">⬅ Back to Portfolio</a>
 
+<!-- POPUP -->
 <div class="overlay" id="overlay">
     <img id="overlayImg">
     <h2 id="overlayTitle"></h2>
@@ -211,6 +250,7 @@ h1{
 
 <script>
 
+/* UPLOAD FUNCTION */
 let activityCount = 0;
 
 function uploadActivity(){
@@ -238,6 +278,7 @@ function uploadActivity(){
     document.getElementById("imageUpload").value = "";
 }
 
+/* IMAGE POPUP */
 const images = document.querySelectorAll(".photo-box img");
 const overlay = document.getElementById("overlay");
 const overlayImg = document.getElementById("overlayImg");
@@ -254,5 +295,8 @@ images.forEach(img => {
 overlay.addEventListener("click", () => {
     overlay.classList.remove("active");
 });
+
+</script>
+
 </body>
 </html>
